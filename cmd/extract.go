@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 	"log"
 	"strings"
 
@@ -37,9 +38,16 @@ The tool will parse infoboxes and extract quads in the form of:
 		// Output results
 		fmt.Printf("Extracted %d quads from %s\n", len(quads), url)
 		
+		fileWriter, err := os.Create(outputFile)
+		if err != nil {
+			fmt.Errorf("failed to create output file: %w", err)
+			return
+		}
+		defer fileWriter.Close()
+
 		// Save to file
 		formatter := output.NewFormatter()
-		if err := formatter.WriteQuads(quads, outputFile, format); err != nil {
+		if err := formatter.WriteQuads(quads, fileWriter, format); err != nil {
 			log.Fatalf("Failed to write output: %v", err)
 		}
 		

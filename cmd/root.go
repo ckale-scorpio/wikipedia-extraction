@@ -35,6 +35,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.wikipedia-extraction.yaml)")
 	rootCmd.PersistentFlags().StringVar(&outputFile, "output", "output.json", "output file path")
 	rootCmd.PersistentFlags().StringVar(&format, "format", "json", "output format (json, csv, xml)")
+
 }
 
 // initConfig reads in config file and ENV variables if set.
